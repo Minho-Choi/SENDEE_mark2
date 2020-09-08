@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import RPi.GPIO as GPIO
+import pigpio
 from time import sleep
 
 
@@ -292,66 +292,20 @@ def emoreact(emotion):
         
 
 # servo bound
-head_mindc = 8
-head_maxdc = 10
-head_interval = (head_maxdc - head_mindc)/16
+head_mindc = 1650
+head_maxdc = 2150
+head_interval = (head_maxdc - head_mindc)/40
 
-body_mindc = 3
-body_maxdc = 12
-body_interval = (body_maxdc - body_mindc)/16
+body_mindc = 600
+body_maxdc = 2400
+body_interval = (body_maxdc - body_mindc)/40
 
-right_mindc = 5
-right_maxdc = 10
-right_interval = (right_maxdc - right_mindc)/16
+right_mindc = 500
+right_maxdc = 1300
+right_interval = (right_maxdc - right_mindc)/40
 
-left_mindc = 11
-left_maxdc = 4
-left_interval = (left_maxdc - left_mindc)/16
-
-        
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
-
-GPIO.setup(5, GPIO.OUT)
-GPIO.setup(6, GPIO.OUT)
-GPIO.setup(13, GPIO.OUT)
-GPIO.setup(19, GPIO.OUT)
-
-head = GPIO.PWM(19, 50)
-head.start(head_mindc + 1)
-head.ChangeDutyCycle(0)
-print('head ready')
-
-body = GPIO.PWM(6, 50)
-body.start(body_mindc + 4.5)
-body.ChangeDutyCycle(0)
-print('body ready')
-
-GPIO.setup(5, GPIO.OUT)
-GPIO.setup(13, GPIO.OUT)
-left = GPIO.PWM(5, 50)
-right = GPIO.PWM(13, 50)
-
-left.start(left_mindc)
-right.start(right_mindc)
-left.ChangeDutyCycle(0)
-right.ChangeDutyCycle(0)
-print('arm ready')
+left_mindc = 1250
+left_maxdc = 2000
+left_interval = (left_maxdc - left_mindc)/40
 
 
-
-#Control example
-#     
-# prev_angle = 0
-# head_angle = 0
-# 
-# 
-# while True:
-#     
-# #     prev_angle = movetogether(prev_angle, 0, 1)
-# #     sleep(1)
-#     emoreact('surprise2')
-#     sleep(1)
-
-    
-#GPIO.cleanup()
